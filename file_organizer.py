@@ -1,11 +1,12 @@
-# os is imported here to do here with file and folders or operating system like deleting or removning the file and so on 
 import os
-# shutil is used here to move the file from one place to another
+import sys
 import shutil
+from dotenv import load_dotenv
 
-# 👉 Change this to the folder you want to organize
-folder_path = "C:/Users/YourName/Downloads"
+sys.stdout.reconfigure(encoding='utf-8')
 
+load_dotenv()
+folder_path = os.getenv("FOLDER_PATH")
 # File type categories
 file_types = {
     "Images": [".jpg", ".jpeg", ".png", ".gif"],
@@ -34,7 +35,7 @@ def organize_files(path):
                 target_folder = os.path.join(path, folder_name)
                 os.makedirs(target_folder, exist_ok=True)
                 shutil.move(file_path, os.path.join(target_folder, file))
-                print(f"Moved: {file} → {folder_name}/")
+                print(f"Moved: {file} -> {folder_name}/")
                 moved = True
                 break
 
@@ -43,7 +44,7 @@ def organize_files(path):
             others_folder = os.path.join(path, "Others")
             os.makedirs(others_folder, exist_ok=True)
             shutil.move(file_path, os.path.join(others_folder, file))
-            print(f"Moved: {file} → Others/")
+            print(f"Moved: {file} -> Others/")
 
 if __name__ == "__main__":
     organize_files(folder_path)
